@@ -1,0 +1,9 @@
+[submodule "api"]
+    path = api
+    url = git@github.com:NearlyApp/api.git
+[submodule "mobile-app"]
+    path = mobile-app
+    url = git@github.com:mobile-app/api.git
+[submodule "common"]
+    path = common
+    url = git@github.com:NearlyApp/common.git
