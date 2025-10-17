@@ -19,6 +19,7 @@ services:
       - backend
 
   npm:
+    container_name: npm
     image: jc21/nginx-proxy-manager:latest
     restart: unless-stopped
     ports:
@@ -28,6 +29,13 @@ services:
     volumes:
       - ./npm:/data
       - ./npm/letsencrypt:/etc/letsencrypt
+    
+  pihole:
+    container_name: pihole
+    image: pihole/pihole:latest
+    ports:
+      - 53:53/tcp
+      - 53:53/udp
 
 networks:
   backend:
