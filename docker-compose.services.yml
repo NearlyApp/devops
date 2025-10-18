@@ -1,7 +1,9 @@
 services:
   api:
-    build: ./api
-
+    build:
+      context: ./api
+      secrets:
+        - npm_token
     env_file:
       - ./api/.env
     ports:
