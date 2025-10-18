@@ -1,5 +1,6 @@
 services:
   postgres:
+    container_name: postgres
     image: postgres:latest
     env_file:
       - .env
@@ -12,6 +13,7 @@ services:
       - backend
 
   redis:
+    container_name: redis
     image: redis:7
     ports:
       - 6379:6379
@@ -40,7 +42,9 @@ services:
 
 networks:
   backend:
+    driver: bridge
   frontend:
+    driver: bridge
 
 volumes:
   postgres_data:
