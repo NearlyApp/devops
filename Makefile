@@ -5,7 +5,7 @@ SERVICES_FILE = docker-compose.services.yml
 
 .PHONY: deploy-infra deploy-services down clean
 
-ensure-networks:
+setup:
 	@echo "🔧 Ensuring required networks exist..."
 	@if ! docker network inspect devops_backend >/dev/null 2>&1; then \
 		echo "Creating backend network..."; \
@@ -16,18 +16,15 @@ ensure-networks:
 		docker network create devops_frontend; \
 	fi
 
+	echo "//npm.pkg.github.com/:_authToken=${GHP_TOKEN}" > .npmrc.secret
+
 deploy-infra:
-	@$(MAKE) ensure-networks
+	@$(MAKE) setup
 	@echo "🚀 Deploying infrastructure..."
 	docker compose -f $(INFRA_FILE) -p devops up -d
 
 deploy-services:
-	@$(MAKE) ensure-networks
-	@echo "Setting up..."
-	
-	cd api && echo "//npm.pkg.github.com/:_authToken=${GHP_TOKEN}" > .npmrc.secret
-	
-	cd ..
+	@$(MAKE) setup
 	@echo "🚀 Deploying services..."
 	docker compose -f $(SERVICES_FILE) -p devops up -d
 

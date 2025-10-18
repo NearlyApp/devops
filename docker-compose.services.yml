@@ -1,12 +1,17 @@
 services:
   api:
     build: ./api
+
     env_file:
       - ./api/.env
     ports:
       - 3000:3000
     networks:
       - devops_backend
+
+secrets:
+  npm_token:
+    file: .npmrc.secret
 
 networks:
   devops_backend:
