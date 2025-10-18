@@ -10,7 +10,7 @@ services:
     ports:
       - 5432:5432
     networks:
-      - backend
+      - devops_backend
 
   redis:
     container_name: redis
@@ -18,7 +18,7 @@ services:
     ports:
       - 6379:6379
     networks:
-      - backend
+      - devops_backend
 
   npm:
     container_name: npm
@@ -41,10 +41,10 @@ services:
       - 8080:80
 
 networks:
-  backend:
-    driver: bridge
-  frontend:
-    driver: bridge
+  devops_backend:
+    external: true
+  devops_frontend:
+    external: true
 
 volumes:
   postgres_data:
